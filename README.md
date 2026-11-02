@@ -1,36 +1,55 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# City Top — Restaurant Website
 
-## Getting Started
+Premium Pakistani restaurant website built with **Next.js**, **TypeScript**, **Tailwind CSS**, **Supabase**, and **Motion**.
 
-First, run the development server:
+## Quick start
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000).
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Environment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Copy `.env.local.example` to `.env.local` and add your Supabase project keys:
 
-## Learn More
+```env
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+```
 
-To learn more about Next.js, take a look at the following resources:
+Without these keys the site still runs using the local digitized menu. Reservation and contact forms validate and respond, but persist to Supabase only when configured.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Create a Supabase project.
+2. Run `supabase/migrations/001_city_top_schema.sql` in the SQL editor.
+3. Optionally seed categories/items from `supabase/seed/menu_seed.sql` (or manage via the dashboard).
 
-## Deploy on Vercel
+RLS allows public read of menu data and public insert of reservations / contact inquiries.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Menu source
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Menu items and prices were digitized from City Top printed menu photographs in `menu-source/`. Items with unclear handwritten prices are flagged `needsConfirmation` in `src/data/menu-items.ts`.
+
+### Needs confirmation
+
+| Item | Note |
+| --- | --- |
+| Fried Fish | Tape covered price; not confirmed |
+| Grilled Fish | Tape covered price; not confirmed |
+| Nestle Raita | Price unclear / crossed out |
+| Omelette / Egg Fry | No handwritten price |
+| Jam, Butter, Slices & Tea | No handwritten price |
+
+## Configurable restaurant details
+
+Update `src/lib/restaurant.ts` for address, phone, WhatsApp, hours, and map embed.
+
+## Scripts
+
+- `npm run dev` — development server
+- `npm run build` — production build
+- `npm run start` — serve production build
