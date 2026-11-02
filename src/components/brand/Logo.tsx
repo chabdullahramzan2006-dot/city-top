@@ -9,7 +9,7 @@ type LogoProps = {
 };
 
 const sizeMap = {
-  sm: { icon: 32, text: "text-lg" },
+  sm: { icon: 28, text: "text-base sm:text-lg" },
   md: { icon: 40, text: "text-xl" },
   lg: { icon: 52, text: "text-2xl md:text-3xl" },
 };
@@ -59,9 +59,14 @@ export function Logo({
         />
       </svg>
       {showText && (
-        <span className={cn("font-display leading-none tracking-wide", text)}>
-          <span className="text-ivory">City </span>
-          <span className="text-gold">Top</span>
+        <span
+          className={cn(
+            "font-display whitespace-nowrap leading-none tracking-wide",
+            text,
+          )}
+        >
+          <span className="text-ivory">City</span>
+          <span className="text-gold"> Top</span>
         </span>
       )}
     </>
@@ -71,7 +76,7 @@ export function Logo({
     <Link
       href={href}
       className={cn(
-        "inline-flex items-center gap-2.5 transition-opacity hover:opacity-90",
+        "inline-flex min-w-0 max-w-full items-center gap-2 transition-opacity hover:opacity-90",
         className,
       )}
       aria-label="City Top — Home"
